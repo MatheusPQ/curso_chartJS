@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="meuChart"></canvas>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script>
+
+        function loadChart(data){
+            var canvas = document.getElementById("meuChart");
+            // var data = <?php include __DIR__ . '/ibge_json_data.php'; ?>;
+
+            var myChart = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: data.anos,
+                    datasets: [
+                        {
+                            label: 'população',
+                            data: data.populacao
+                        }
+                    ]
+                }
+            });
+        }
+
+        function loadData(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    loadChart(JSON.parse(this.responseText));
+                }
+            }
+            xhttp.open('GET', 'http://localhost:8000/grafico_com_php/ibge_json_data.php', true);
+            xhttp.send();
+        }
+        loadData();
+    </script>
+</body>
+</html>

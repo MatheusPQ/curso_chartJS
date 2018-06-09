@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <label>Ano:</label>
+        <input type="text" name="value" id="ano">
+
+        <label>Homens:</label>
+        <input type="text" name="value" id="homens">
+        <label>Mulheres:</label>
+        <input type="text" name="value" id="mulheres">
+
+        <button type="button" id="btn-draw-chart" onclick="addData()">Gerar gráfico</button>
+    </fieldset>
+
+    <div style="height: 30vh;"> <!-- Tbm pode usar width -->
+        <canvas id="meuChart"></canvas>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script type="text/javascript">
+
+        var canvas = document.getElementById("meuChart");
+        var data = {
+            "anos" : [
+                '2000',
+                '2001',
+                '2002',
+                '2003'
+            ],
+            "homens" : [
+                '10',
+                '30',
+                '15',
+                '45'
+            ],
+            "mulheres" : [
+                '20',
+                '25',
+                '50',
+                '40'
+            ]
+        };
+
+        var myChart = new Chart(canvas, {
+            type: 'horizontalBar',
+            data: {
+                labels: data.anos,
+                datasets: [
+                    {
+                        label: 'Homens',
+                        data: data.homens,
+                        backgroundColor: 'blue',
+                        borderColor: 'green'
+                    },
+                    {
+                        label: 'Mulheres',
+                        data: data.mulheres,
+                        backgroundColor: 'pink',
+                        borderColor: 'green'
+                    },
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [
+                        {stacked: true}
+                    ],
+                    yAxes: [
+                        {stacked: true}
+                    ]
+                },
+                onClick: function(event,data) { //Dados do evento e do gráfico, respectivamente
+                    if(data.length == 2) {
+                        myChart.data.labels.splice(data[0]._index, 1);
+                        myChart.data.datasets[0].data.splice(data[0]._index, 1); 
+                        myChart.data.datasets[1].data.splice(data[0]._index, 1); 
+            
+                        setTimeout(function(){
+                            myChart.update();
+                        },200); //Delay
+                    }
+                    
+                }
+            }
+        });
+
+        function addData(){
+            var ano = document.getElementById('ano').value;
+            var homens = document.getElementById('homens').value;
+            var mulheres = document.getElementById('mulheres').value;
+            myChart.data.labels.push(ano);
+            myChart.data.datasets[0].data.push(homens); //Primeiro dataset
+            myChart.data.datasets[1].data.push(mulheres); //Segundo dataset
+            myChart.data.datasets[1].backgroundColor = 'green';
+
+            myChart.update(); //Atualiza o gráfico
+        }
+        
+    </script>
+</body>
+</html>

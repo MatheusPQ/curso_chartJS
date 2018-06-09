@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width: 600px; height: 600px;">
+        <canvas id="meuChart"></canvas>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script type="text/javascript">
+
+        var canvas = document.getElementById("meuChart");
+        var data = {
+            "anos" : [
+                '2000',
+                '2001',
+                '2002',
+                '2003'
+            ],
+            "homens" : [
+                '10',
+                '30',
+                '15',
+                '45'
+            ],
+            "mulheres" : [
+                '20',
+                '25',
+                '50',
+                '40'
+            ]
+        };
+
+        var myChart = new Chart(canvas, {
+            type: 'horizontalBar',
+            data: {
+                labels: data.anos,
+                datasets: [
+                    {
+                        label: 'Homens',
+                        data: data.homens,
+                        backgroundColor: 'blue',
+                        borderColor: 'green'
+                    },
+                    {
+                        label: 'Mulheres',
+                        data: data.mulheres,
+                        backgroundColor: 'pink',
+                        borderColor: 'green'
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [
+                        {stacked: true}
+                    ],
+                    yAxes: [
+                        {stacked: true}
+                    ]
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

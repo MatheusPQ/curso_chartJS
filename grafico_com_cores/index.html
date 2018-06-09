@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width: 600px; height: 600px;">
+        <canvas id="meuChart"></canvas>
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <script type="text/javascript">
+
+        var canvas = document.getElementById("meuChart");
+        // var data = <?php include __DIR__ . '/ibge_json_data.php'; ?>;
+        var data = {
+            "anos" : [
+                '2000',
+                '2001',
+                '2002',
+                '2003'
+            ],
+            "populacao" : [
+                '10',
+                '30',
+                '15',
+                '45'
+            ]
+        };
+
+        var myChart = new Chart(canvas, {
+            type: 'line',
+            // type: 'bar',
+            //Num gráfico de barras, se tem 10 colunas, pode atribuir 10 cores
+            data: {
+                labels: data.anos,
+                datasets: [
+                    {
+                        label: 'População',
+                        data: data.populacao,
+                        backgroundColor: 'rgba(14,72,100,0.5)'
+                        // backgroundColor: [
+                        //     'red', 'green', '#000000'
+                        // ]
+                    }
+                ]
+            }
+        });
+        
+    </script>
+</body>
+</html>
